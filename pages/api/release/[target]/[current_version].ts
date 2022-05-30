@@ -24,8 +24,8 @@ export default async function handler(
   const params = req.query;
 
   const { data } = await octokit.request("GET /repos/{owner}/{repo}/releases", {
-    owner: "hudy9x",
-    repo: "kompad-releases",
+    owner: process.env.GITHUB_OWNER || "",
+    repo: process.env.GITHUB_REPO || "",
   });
 
   const { tag_name, published_at, assets } = data[0];
