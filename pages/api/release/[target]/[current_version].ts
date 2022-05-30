@@ -2,14 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { octokit } from "../../../../lib/git";
 
-type Version = {
-  url: string;
-  version: string;
-  notes: string;
-  pub_date: string;
-  signature: string;
-};
-
 type PlatformDetail = {
   url: string;
   version: string;
@@ -37,15 +29,6 @@ export default async function handler(
   });
 
   const { tag_name, published_at, assets } = data[0];
-  const releases = assets.map(
-    ({ browser_download_url, size, download_count, name }) => ({
-      browser_download_url,
-      size,
-      download_count,
-      name,
-    })
-  );
-
   const platforms: Platform = { windows: {}, macos: {}, linux: {} };
 
   assets.reduce((platforms, item) => {
