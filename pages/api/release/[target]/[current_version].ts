@@ -39,7 +39,7 @@ export default async function handler(
         version: tag_name,
         notes: "",
         pub_date: published_at || "",
-        signature: "",
+        signature: process.env.SIGNATURE || "",
       };
     }
 
