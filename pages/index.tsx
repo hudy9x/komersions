@@ -47,7 +47,7 @@ const Home: NextPage = () => {
         ) : (
           <>
             <div className="flex item-center justify-between">
-              <h1>{author}/kompad</h1>
+              <h1>{author}/{process.env.NEXT_PUBLIC_APP_NAME}</h1>
               <span className="text-gray">{published}</span>
             </div>
             <ul>
