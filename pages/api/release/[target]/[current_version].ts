@@ -59,17 +59,20 @@ export default async function handler(
       }
     }
 
-    // console.log(platforms);
-
-    // res.status(200).json(platforms);
-
     if (params.target === "windows") {
+      // s-maxage=120:                data is fresh in 120s
+      // stale-while-revalidate=59:   after 1 - 60 data is stale
+      //                              during that time, new revalidation request will be made
+      res.setHeader(
+        "Cache-control",
+        "public, s-maxage=120, stale-while-revalidate=59"
+      );
       res.status(200).json(platforms.windows);
       return;
     }
 
     res.status(204).send("No Content");
   } catch (error) {
-    res.status(204).send(error);
+    res.status(500).send(error);
   }
 }
