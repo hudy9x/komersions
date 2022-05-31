@@ -71,7 +71,7 @@ export const getServerSideProps: GetServerSideProps = async function ({ res }) {
   try {
     res.setHeader(
       "Cache-Control",
-      "public, s-maxage=10, stale-while-revalidate=59"
+      "public, s-maxage=120, stale-while-revalidate=59"
     );
 
     const { data: latestVersion } = await axios(
