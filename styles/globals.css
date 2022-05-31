@@ -30,7 +30,7 @@ a:hover{
 }
 
 .container {
-  width: 450px;
+  width: 500px;
 }
 
 .text-gray {
@@ -43,6 +43,10 @@ a:hover{
 
 .text-gray-3 {
   color: #707070;
+}
+
+.text-sm {
+  font-size: .825rem;
 }
 
 .flex {
