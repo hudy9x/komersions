@@ -33,7 +33,16 @@ export default async function handler(
       }
     );
 
-    const { tag_name, published_at, assets } = data[0];
+    const latestRelease = data.find(
+      (release) => release.draft === false && release.assets.length > 2
+    );
+
+    if (!latestRelease) {
+      res.status(204).send("No Content");
+      return;
+    }
+
+    const { tag_name, published_at, assets } = latestRelease;
     const platforms: Platform = { windows: {}, macos: {}, linux: {} };
 
     for (const item of assets) {

@@ -6,13 +6,30 @@ import { LatestVersion } from "../../../types";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<LatestVersion>
+  // res: NextApiResponse<any>
 ) {
   const { data } = await octokit.request("GET /repos/{owner}/{repo}/releases", {
-    owner: "hudy9x",
-    repo: "kompad-releases",
+    owner: process.env.GITHUB_OWNER || "",
+    repo: process.env.GITHUB_REPO || "",
   });
 
-  const { tag_name, author, published_at, assets, html_url } = data[0];
+  const latestRelease = data.find(
+    (release) => release.draft === false && release.assets.length > 2
+  );
+
+  if (!latestRelease) {
+    res.status(204).json({
+      all_releases: "",
+      release_notes: "",
+      tag_name: "",
+      author: "",
+      published_at: "",
+      releases: [],
+    });
+    return;
+  }
+
+  const { tag_name, author, published_at, assets, html_url } = latestRelease;
   const releases = assets.map(
     ({ browser_download_url, size, download_count, name }) => ({
       browser_download_url,
