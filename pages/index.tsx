@@ -28,9 +28,13 @@ const Home: NextPage<LatestVersion> = ({
               const s = parseFloat(release.size / 1024 / 1024 + "");
               const size = s.toFixed(2);
               const url = release.browser_download_url;
-              const isWin = url.indexOf(".msi");
+              const isWin = ~url.indexOf(".msi");
+              const isMac = ~url.indexOf(".dmg");
+              const isLinux = ~url.indexOf(".app.tar.gz");
 
-              if (!/msi\.zip$/.test(url)) {
+              console.log(url, isWin, isMac);
+
+              if (!/\.msi$/.test(url) && !/\.dmg$/.test(url) && !/\.app\.tar\.gz$/.test(url)) {
                 return null;
               }
 
@@ -38,13 +42,16 @@ const Home: NextPage<LatestVersion> = ({
                 <li
                   key={release.name}
                   className="flex item-center justify-between"
+                  style={{ marginBottom: 15 }}
                 >
-                  <a href={release.browser_download_url}>
+                  <div>
                     <span style={{ color: "white", paddingRight: 10 }}>
-                      {isWin ? "win86x64" : ""}
+                      {isWin ? "Win86x64" : ""}
+                      {isMac ? "MacOS" : ""}
+                      {isLinux ? "Linux" : ""}
                     </span>
-                    {release.name}
-                  </a>
+                    <a href={release.browser_download_url}>{release.name}</a>
+                  </div>
                   <span className="text-gray-2">{size} mb</span>
                 </li>
               );
