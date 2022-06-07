@@ -124,28 +124,28 @@ export default async function handler(
       // s-maxage=120:                data is fresh in 120s
       // stale-while-revalidate=59:   after 1 - 60 data is stale
       //                              during that time, new revalidation request will be made
-      res.setHeader(
-        "Cache-control",
-        "public, s-maxage=120, stale-while-revalidate=59"
-      );
+      // res.setHeader(
+      //   "Cache-control",
+      //   "public, s-maxage=120, stale-while-revalidate=59"
+      // );
       res.status(200).json(platforms.windows);
       return;
     }
 
     if (isMacOSPlatform) {
-      res.setHeader(
-        "Cache-control",
-        "public, s-maxage=120, stale-while-revalidate=59"
-      );
+      // res.setHeader(
+      //   "Cache-control",
+      //   "public, s-maxage=120, stale-while-revalidate=59"
+      // );
       res.status(200).json(platforms.macos);
       return;
     }
 
     if (isLinuxPlatform) {
-      res.setHeader(
-        "Cache-control",
-        "public, s-maxage=120, stale-while-revalidate=59"
-      );
+      // res.setHeader(
+      //   "Cache-control",
+      //   "public, s-maxage=120, stale-while-revalidate=59"
+      // );
       res.status(200).json(platforms.linux);
       return;
     }
